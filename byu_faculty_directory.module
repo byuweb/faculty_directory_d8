@@ -1,0 +1,33 @@
+<?php
+
+/**
+ * @file
+ * Contains byu_faculty_directory.module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function byu_faculty_directory_theme() {
+  $variables = [
+    'byu_faculty_directory' => [
+      'variables' => [
+        'entries' => NULL,
+        'template' => NULL,
+      ],
+      'template' => 'byu-faculty-directory'
+    ]
+  ];
+
+  return $variables;
+  /*$theme = array();
+  $theme['byu_faculty_directory'] = array(
+    'variables' => array(
+        'entries' => NULL,
+        'template' => NULL,
+      ),
+      'template' => 'byu-faculty-directory',
+  )
+
+  return $theme;*/
+}

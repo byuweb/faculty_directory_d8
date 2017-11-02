@@ -1,0 +1,7 @@
+name: BYU Faculty Directory
+type: module
+description: Displays a BYU faculty directory.
+package: BYU
+core: 8.x
+#dependencies:
+  #- block
