@@ -59,9 +59,9 @@ set classes = [
       {% endfor %}
     {% else %}
     {% if entry.image_path is defined and entry.image_path != "" %}
-      <byu-faculty-profile background-image=url("background-image.jpg") faculty-image="{{ entries.image_path }}">
+      <byu-faculty-profile background-image="{{ background_image }}" faculty-image="{{ entries.image_path }}">
     {% else %}
-      <byu-faculty-profile background-image=url("background-image.jpg") faculty-image="https://www.drupal.org/files/issues/default-avatar.png">
+      <byu-faculty-profile background-image="{{ background_image }}" faculty-image="https://www.drupal.org/files/issues/default-avatar.png">
     {% endif %}
         <div slot="faculty-name">{{ entries.first_name ~ " " ~ entries.last_name }}</div>
         <span slot="faculty-title">{{ entries.title }}</span>

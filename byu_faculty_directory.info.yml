@@ -3,5 +3,6 @@ type: module
 description: Displays a BYU faculty directory.
 package: BYU
 core: 8.x
-#dependencies:
+dependencies:
+  - node
   #- block

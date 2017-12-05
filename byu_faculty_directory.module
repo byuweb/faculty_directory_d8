@@ -9,11 +9,13 @@
  * Implements hook_theme().
  */
 function byu_faculty_directory_theme() {
+  global $base_root, $base_path;
   $variables = [
     'byu_faculty_directory' => [
       'variables' => [
         'entries' => NULL,
         'template' => NULL,
+        'background_image' => $base_root . $base_path . drupal_get_path('module', 'byu_faculty_directory') . '/images/background-image.jpg',
       ],
       'template' => 'byu-faculty-directory'
     ]
