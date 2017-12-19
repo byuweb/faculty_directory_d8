@@ -11,15 +11,15 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DirectoryController extends ControllerBase {
    public function listingRender() {
-     \Drupal\Core\Database\Database::setActiveConnection('external');
-     /*$db = \Drupal::database();
-     $entries = $db->select('faculty_directory', '*')->execute();*/
+     /*\Drupal\Core\Database\Database::setActiveConnection('external');
      $query = db_query("SELECT * FROM faculty_directory ORDER BY last_name, first_name");
      $entries = $query->fetchAll();
-     \Drupal\Core\Database\Database::setActiveConnection('default');
+     \Drupal\Core\Database\Database::setActiveConnection('default');*/
+     $node_ids = \Drupal::entityQuery('node')->condition('type','byu_faculty_member')->execute();
+     $nodes = \Drupal\node\Entity\Node::loadMultiple($node_ids);
      return [
        '#theme' => 'byu_faculty_directory',
-       '#entries' => $entries,
+       '#entries' => $nodes, #$entries,
        '#template' => 0,
        '#attached' => [
          'library' => [
@@ -32,13 +32,23 @@ class DirectoryController extends ControllerBase {
    }
 
    public function profileRender($id) {
-     \Drupal\Core\Database\Database::setActiveConnection('external');
+     /*\Drupal\Core\Database\Database::setActiveConnection('external');
      $query = db_query("SELECT * FROM faculty_directory WHERE uid=$id ORDER BY last_name, first_name");
      $entry = $query->fetch();
-     \Drupal\Core\Database\Database::setActiveConnection('default');
+     \Drupal\Core\Database\Database::setActiveConnection('default');*/
+     $node_ids = \Drupal::entityQuery('node')->condition('type','byu_faculty_member')->execute();
+     $nodes = \Drupal\node\Entity\Node::loadMultiple($node_ids);
+
+    $return_node = NULL;
+     foreach ($nodes as $node) {
+       if ($node->get('field_uid')->getValue() == $id){
+         $return_node = $node;
+         break;
+       }
+     }
      return [
        '#theme' => 'byu_faculty_directory',
-       '#entries' => $entry,
+       '#entries' => $return_node, #$entry,
        '#template' => 1,
        '#attached' => [
          'library' => [

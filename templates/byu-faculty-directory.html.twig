@@ -33,7 +33,8 @@ set classes = [
 ]
 %}
 
-<div{{ attributes.addClass(classes) }}>
+{#
+/*<div{{ attributes.addClass(classes) }}>
   <div class="module-container">
     {% if template == 0 %}
       <div class=faculty-listing-header>
@@ -101,6 +102,80 @@ set classes = [
         {% if entries.custom_content is not null %}
           <p slot="faculty-custom-body">{{ entries.custom_content }}</p>
         {% endif %}
+      </byu-faculty-profile>
+    {% endif %}
+  </div>
+</div>*/
+$}
+
+<div{{ attributes.addClass(classes) }}>
+  <div class="module-container">
+    {% if template == 0 %}
+      <div class=faculty-listing-header>
+        <h1>
+          Faculty Profiles
+        </h1>
+      </div>
+      {% for node in entries %}
+        {% if file_url(node.field_profile_image.entity.fileuri) != "" %}
+          <byu-faculty-listing faculty-image="{{ file_url(node.field_profile_image.entity.fileuri)  }}" faculty-profile-link="faculty_directory/{{ node.field_uid }}">
+        {% else %}
+          <byu-faculty-listing faculty-image="https://www.drupal.org/files/issues/default-avatar.png" faculty-profile-link="faculty_directory/{{ node.field_uid }}">
+        {% endif %}
+          <div slot="listing-name">{{ node.field_first_name ~ " " ~ node.field_last_name }}</div>
+          <span slot="listing-title">{{ node.field_title }}</span>
+          <span slot="listing-office">{{ node.field_office_location }}</span>
+          <span slot="listing-phone">{{ node.field_phone_number }}</span>
+          <span slot="listing-email">{{ node.field_email }}</span>
+          <span slot="listing-office-hours">{{ node.field_office_hours }}</span>
+          <p slot="listing-research">{{ node.field_research_short }}</p>
+          <p slot="listing-biography">{{ node.field_biography }}</p>
+        </byu-faculty-listing>
+      {% endfor %}
+    {% else %}
+      {% if file_url(entries.field_profile_image.entity.fileuri) != "" %}
+        <byu-faculty-profile background-image="{{ background_image }}" faculty-image="{{ file_url(entries.field_profile_image.entity.fileuri) }}">
+      {% else %}
+        <byu-faculty-profile background-image="{{ background_image }}" faculty-image="https://www.drupal.org/files/issues/default-avatar.png">
+      {% endif %}
+      <div slot="faculty-name">{{ entries.field_first_name ~ " " ~ entries.last_name }}</div>
+      <span slot="faculty-title">{{ entries.field_title }}</span>
+      <span slot="faculty-office">{{ entries.field_office_location }}</span>
+      <span slot="faculty-phone">{{ entries.field_phone_number }}</span>
+      <span slot="faculty-email">{{ entries.field_email }}</span>
+      {% if entries.field_biography is not null %}
+        <p slot="faculty-biography">{{ entries.field_biography }}</p>
+      {% endif %}
+      {% if entries.field_research_long is not null %}
+        <p slot="faculty-research">{{ entries.field_research_long }}</p>
+      {% endif %}
+      {% if entries.field_committees is not null %}
+        <p slot="faculty-committees">{{ entries.field_committees }}</p>
+      {% endif %}
+      {% if entries.field_students is not null %}
+        <p slot="faculty-students">{{ entries.field_students }}</p>
+      {% endif %}
+      {% if entries.field_publications is not null %}
+        <p slot="faculty-papers">{{ entries.field_publications }}</p>
+      {% endif %}
+      {% if entries.field_awards is not null %}
+        <p slot="faculty-awards">{{ entries.field_awards }}</p>
+      {% endif %}
+      {% if entries.field_courses is not null %}
+        <p slot="faculty-courses">{{ entries.field_courses }}</p>
+      {% endif %}
+      {% if entries.field_office_hours is not null %}
+        <p slot="faculty-office-hours">{{ entries.field_office_hours }}</p>
+      {% endif %}
+      {% if entries.field_links is not null %}
+        <p slot="faculty-links">{{ entries.field_links }}</p>
+      {% endif %}
+      {% if entries.field_custom_title is not null %}
+        <div slot="faculty-custom-header">{{ entries.field_custom_title }}</div>
+      {% endif %}
+      {% if entries.field_custom_content is not null %}
+        <p slot="faculty-custom-body">{{ entries.field_custom_content }}</p>
+      {% endif %}
       </byu-faculty-profile>
     {% endif %}
   </div>
